@@ -1,0 +1,110 @@
+.provider-container {
+  max-width: 480px;
+  margin: 70px auto;
+  padding: 40px 50px;
+  background: #1a1a1a;
+  color: #e6e6e6;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ 
+ 
+  /* Fix height to avoid toggle jump */
+  min-height: 650px;  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.toggle-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.toggle-section button {
+  flex: 1;
+  padding: 12px;
+  background: #333;
+  color: #ccc;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 8px 8px 0 0;
+  margin: 0 5px;
+}
+
+.toggle-section button.active-toggle {
+  background: #00796b;
+  color: #fff;
+  font-weight: bold;
+}
+
+.toggle-section button:hover:not(.active-toggle) {
+  background: #444;
+}
+
+.form-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-box h2 {
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 22px;
+  color: #00e676;
+  text-align: center;
+}
+
+.form-box label {
+  margin-bottom: 5px;
+  font-size: 15px;
+  color: #ccc;
+}
+
+.form-box input {
+  padding: 10px;
+  margin-bottom: 16px;
+  font-size: 15px;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background: #2a2a2a;
+  color: #fff;
+}
+
+.action-button {
+  background: #00e676;
+  color: #1a1a1a;
+  border: none;
+  padding: 12px;
+  font-size: 17px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.action-button:hover {
+  background: #00c853;
+}
+.forgot-password-btn {
+  background: none;
+  border: none;
+  color: #00e676;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 16px auto;
+  display: block;
+  text-align: right;
+  padding: 0;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.forgot-password-btn:hover {
+  color: #00c853;
+}
