@@ -1,0 +1,119 @@
+/* CustomerLogin.css */
+
+.login-container {
+  max-width: 480px;
+  width: 90%;
+  margin: auto;
+  padding: 40px 50px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  
+  /* Center vertically & horizontally */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+/* Fix height to avoid size jump */
+  min-height: 650px; /* Adjust this value if needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+
+.toggle-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.toggle-buttons button {
+  flex: 1;
+  padding: 14px 0;
+  background: #e0e0e0;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 17px;
+  transition: background-color 0.3s ease;
+  border-radius: 10px 10px 0 0;
+  margin: 0 6px;
+  color: #555;
+}
+
+.toggle-buttons button.active {
+  background: #007bff;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.toggle-buttons button:hover:not(.active) {
+  background: #cfd8dc;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #444;
+}
+
+.form input {
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1.8px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.form input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.submit-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: #0056b3;
+  box-shadow: 0 6px 15px rgba(0, 86, 179, 0.4);
+}
+
+.forgot-password-btn {
+  background: none;
+  border: none;
+  color: #0a1942;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 16px auto;
+  display: block;
+  text-align: right;
+  padding: 0;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.forgot-password-btn:hover {
+  color: #09123b;
+}

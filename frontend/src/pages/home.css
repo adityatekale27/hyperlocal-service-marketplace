@@ -1,0 +1,80 @@
+body, html {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  color: #ffffff;
+}
+
+/* Full viewport height layout */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+/* Centered main content */
+.main-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+/* Title with scalable styling */
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #ffffff;
+  text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Main CTA login button */
+.login-btn {
+  background-color: #00bcd4;
+  color: #ffffff;
+  border: none;
+  padding: 14px 32px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 188, 212, 0.4);
+}
+
+.login-btn:hover {
+  background-color: #0097a7;
+  transform: translateY(-2px);
+}
+
+/* Sticky-looking footer */
+.footer {
+  background-color: rgba(255, 255, 255, 0.08);
+  text-align: center;
+  padding: 18px;
+  font-size: 0.9rem;
+  color: #ccc;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Partner CTA in footer */
+.partner-btn {
+  background: none;
+  border: none;
+  color: #00e676;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-left: 8px;
+}
+
+.partner-btn:hover {
+  color: #00c853;
+  text-shadow: 0 0 4px #00e676;
+}
