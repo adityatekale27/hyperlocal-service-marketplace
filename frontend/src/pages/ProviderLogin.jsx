@@ -1,24 +1,147 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import './ProviderLogin.css';
+
+const GOOGLE_MAPS_API_KEY = "AIzaSyB3Yaav6N_IKsa676sQDR4HcDwij2j9hTI"; // Replace with your actual API key
+
+const loadGoogleMapsScript = (callback) => {
+  if (window.google) {
+    callback();
+    return;
+  }
+  const existingScript = document.getElementById("googleMaps");
+  if (!existingScript) {
+    const script = document.createElement("script");
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}`;
+    script.id = "googleMaps";
+    document.body.appendChild(script);
+    script.onload = () => {
+      if (callback) callback();
+    };
+  }
+};
 
 const ProviderLogin = () => {
   const [isLogin, setIsLogin] = useState(true);
 
-  // Controlled inputs for login
+  // Login inputs
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
-  // Controlled inputs for register
+  // Registration inputs
   const [regName, setRegName] = useState("");
   const [regEmail, setRegEmail] = useState("");
   const [regPhone, setRegPhone] = useState("");
   const [regServices, setRegServices] = useState("");
+  const [regExperience, setRegExperience] = useState(0);
   const [regPassword, setRegPassword] = useState("");
   const [regConfirmPassword, setRegConfirmPassword] = useState("");
 
-  // States for loading and errors
+  // For Google Maps location picker
+  const [serviceAreas, setServiceAreas] = useState([]); // Array of { label, location: { type: 'Point', coordinates: [lng, lat] }, radiusMeters }
+
+  const mapRef = useRef(null);
+  const markerRef = useRef(null);
+  const circleRef = useRef(null);
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState(null); // { lat, lng }
+  const [radiusMeters, setRadiusMeters] = useState(5000);
+  const [areaLabel, setAreaLabel] = useState("");
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // Initialize Google Map
+  useEffect(() => {
+    if (!isLogin) {
+      loadGoogleMapsScript(() => {
+        setMapLoaded(true);
+      });
+    }
+  }, [isLogin]);
+
+  useEffect(() => {
+    if (mapLoaded && !mapRef.current) {
+      const defaultPos = { lat: 28.6139, lng: 77.209 }; // Default to Delhi (example)
+
+      const map = new window.google.maps.Map(document.getElementById("map"), {
+        center: defaultPos,
+        zoom: 12,
+      });
+      mapRef.current = map;
+
+      const marker = new window.google.maps.Marker({
+        position: defaultPos,
+        map,
+        draggable: true,
+      });
+      markerRef.current = marker;
+
+      const circle = new window.google.maps.Circle({
+        map,
+        radius: radiusMeters,
+        fillColor: "#AA0000",
+        strokeColor: "#AA0000",
+        strokeOpacity: 0.5,
+        fillOpacity: 0.2,
+        center: defaultPos,
+        draggable: false,
+        editable: true,
+      });
+      circleRef.current = circle;
+
+      // Update selected location and radius on marker drag
+      marker.addListener("dragend", () => {
+        const pos = marker.getPosition();
+        setSelectedLocation({ lat: pos.lat(), lng: pos.lng() });
+        circle.setCenter(pos);
+      });
+
+      // Update radiusMeters when circle radius is changed (editable circle)
+      circle.addListener("radius_changed", () => {
+        const newRadius = circle.getRadius();
+        setRadiusMeters(Math.round(newRadius));
+      });
+
+      // Initial selected location
+      setSelectedLocation(defaultPos);
+    }
+  }, [mapLoaded]);
+
+  // Update circle radius when radiusMeters changes
+  useEffect(() => {
+    if (circleRef.current) {
+      circleRef.current.setRadius(radiusMeters);
+    }
+  }, [radiusMeters]);
+
+  // Handle adding a service area to list
+  const addServiceArea = () => {
+    if (!areaLabel) {
+      alert("Please enter a label for the service area.");
+      return;
+    }
+    if (!selectedLocation) {
+      alert("Please select a location on the map.");
+      return;
+    }
+
+    const newArea = {
+      label: areaLabel,
+      location: {
+        type: "Point",
+        coordinates: [selectedLocation.lng, selectedLocation.lat],
+      },
+      radiusMeters: radiusMeters,
+    };
+
+    setServiceAreas((prev) => [...prev, newArea]);
+    setAreaLabel("");
+  };
+
+  // Remove a service area from the list
+  const removeServiceArea = (index) => {
+    setServiceAreas((prev) => prev.filter((_, i) => i !== index));
+  };
 
   // Handle login submit
   const handleLoginSubmit = async (e) => {
@@ -27,7 +150,6 @@ const ProviderLogin = () => {
     setLoading(true);
 
     try {
-      // Replace URL with your backend login API endpoint
       const res = await fetch("/api/provider/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -37,10 +159,7 @@ const ProviderLogin = () => {
 
       if (!res.ok) throw new Error(data.message || "Login failed");
 
-      // Example: Save token to localStorage
       localStorage.setItem("providerToken", data.token);
-
-      // Redirect to provider dashboard or homepage
       window.location.href = "/provider/home";
     } catch (err) {
       setError(err.message);
@@ -58,9 +177,13 @@ const ProviderLogin = () => {
       return;
     }
 
+    if (serviceAreas.length === 0) {
+      setError("Please add at least one service area.");
+      return;
+    }
+
     setLoading(true);
     try {
-      // Replace URL with your backend register API endpoint
       const res = await fetch("/api/provider/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -68,7 +191,9 @@ const ProviderLogin = () => {
           fullName: regName,
           email: regEmail,
           phone: regPhone,
-          services: regServices,
+          services: regServices.split(",").map(s => s.trim()), // split by comma into array
+          experience: Number(regExperience),
+          serviceAreas: serviceAreas,
           password: regPassword,
         }),
       });
@@ -76,10 +201,7 @@ const ProviderLogin = () => {
 
       if (!res.ok) throw new Error(data.message || "Registration failed");
 
-      // Example: Save token to localStorage
       localStorage.setItem("providerToken", data.token);
-
-      // Redirect after successful registration
       window.location.href = "/provider/home";
     } catch (err) {
       setError(err.message);
@@ -181,7 +303,7 @@ const ProviderLogin = () => {
             onChange={(e) => setRegPhone(e.target.value)}
           />
 
-          <label>Service(s) Provided</label>
+          <label>Service(s) Provided (comma separated)</label>
           <input
             type="text"
             placeholder="e.g., Plumber, Electrician, Carpenter"
@@ -190,6 +312,55 @@ const ProviderLogin = () => {
             onChange={(e) => setRegServices(e.target.value)}
           />
 
+          <label>Experience (years)</label>
+          <input
+            type="number"
+            min="0"
+            placeholder="Enter your years of experience"
+            required
+            value={regExperience}
+            onChange={(e) => setRegExperience(e.target.value)}
+          />
+
+          <label>Service Areas</label>
+          <input
+            type="text"
+            placeholder="Label for service area (e.g., Downtown)"
+            value={areaLabel}
+            onChange={(e) => setAreaLabel(e.target.value)}
+          />
+          <div id="map" style={{ height: "300px", width: "100%", marginBottom: "10px" }}></div>
+
+          <label>Radius (meters)</label>
+          <input
+            type="number"
+            min="100"
+            max="20000"
+            value={radiusMeters}
+            onChange={(e) => {
+              const val = Number(e.target.value);
+              if (val >= 100 && val <= 20000) setRadiusMeters(val);
+            }}
+          />
+
+          <button type="button" onClick={addServiceArea} style={{ marginBottom: "15px" }}>
+            Add Service Area
+          </button>
+
+          <div>
+            <h4>Added Service Areas:</h4>
+            <ul>
+              {serviceAreas.map((area, idx) => (
+                <li key={idx}>
+                  <strong>{area.label}</strong> — Lat: {area.location.coordinates[1].toFixed(5)}, Lng: {area.location.coordinates[0].toFixed(5)}, Radius: {area.radiusMeters}m{" "}
+                  <button type="button" onClick={() => removeServiceArea(idx)} style={{ marginLeft: "10px" }}>
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           <label>Password</label>
           <input
             type="password"
@@ -197,26 +368,25 @@ const ProviderLogin = () => {
             required
             value={regPassword}
             onChange={(e) => setRegPassword(e.target.value)}
-          />
+            />
+            <label>Confirm Password</label>
+      <input
+        type="password"
+        placeholder="Confirm your password"
+        required
+        value={regConfirmPassword}
+        onChange={(e) => setRegConfirmPassword(e.target.value)}
+      />
 
-          <label>Confirm Password</label>
-          <input
-            type="password"
-            placeholder="Confirm your password"
-            required
-            value={regConfirmPassword}
-            onChange={(e) => setRegConfirmPassword(e.target.value)}
-          />
+      <button type="submit" className="action-button" disabled={loading}>
+        {loading ? "Registering..." : "Register"}
+      </button>
 
-          <button type="submit" className="action-button" disabled={loading}>
-            {loading ? "Registering..." : "Register"}
-          </button>
-
-          {error && <p className="error-message">{error}</p>}
-        </form>
-      )}
-    </div>
-  );
+      {error && <p className="error-message">{error}</p>}
+    </form>
+  )}
+</div>
+);
 };
 
 export default ProviderLogin;
