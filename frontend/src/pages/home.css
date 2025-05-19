@@ -1,12 +1,45 @@
+/* Cosmic gradient background with star particles */
+
 body, html {
   height: 100%;
+  margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  background: radial-gradient(ellipse at center, #0b1a2b 0%, #000814 80%);
   color: #ffffff;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Star particles container */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background:
+    radial-gradient(2px 2px at 20% 30%, #ffffff88, transparent),
+    radial-gradient(1.5px 1.5px at 50% 80%, #ffffffcc, transparent),
+    radial-gradient(1px 1px at 80% 60%, #ffffffbb, transparent),
+    radial-gradient(2px 2px at 40% 20%, #ffffff99, transparent),
+    radial-gradient(1.5px 1.5px at 70% 40%, #ffffffcc, transparent);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  animation: starMove 60s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Slow floating star movement */
+@keyframes starMove {
+  0% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+  100% { background-position: 200px 200px, 200px 150px, 150px 200px, 100px 150px, 50px 200px; }
 }
 
 /* Full viewport height layout */
 .home-container {
+  position: relative;
+  z-index: 1; /* above stars */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -24,57 +57,101 @@ body, html {
   padding: 0 20px;
 }
 
-/* Title with scalable styling */
 .title {
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 25px;
-  color: #ffffff;
-  text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
+  color: #00e5ff;
+  animation: flickerGlow 3s infinite ease-in-out;
 }
 
-/* Main CTA login button */
+/* Main CTA login button with glowing hover & ripple effect */
 .login-btn {
-  background-color: #00bcd4;
-  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  background-color: #00e5ff;
+  color: #000814;
   border: none;
-  padding: 14px 32px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  border-radius: 8px;
+  padding: 14px 36px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 14px rgba(0, 188, 212, 0.4);
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.4s ease;
+  box-shadow: 0 4px 20px rgba(0, 229, 255, 0.7);
+  user-select: none;
+  outline: none;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
 }
 
 .login-btn:hover {
-  background-color: #0097a7;
-  transform: translateY(-2px);
+  background-color: #00b0ff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 35px rgba(0, 176, 255, 0.9);
 }
 
-/* Sticky-looking footer */
+/* Ripple effect on click */
+.login-btn:after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10,10);
+  opacity: 0;
+  transition: transform 0.5s, opacity 1s;
+}
+
+.login-btn:active:after {
+  transform: scale(0,0);
+  opacity: 0.3;
+  transition: 0s;
+}
+
+/* Sticky-looking footer with fade-in */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .footer {
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: rgba(0, 8, 20, 0.5);
   text-align: center;
   padding: 18px;
   font-size: 0.9rem;
-  color: #ccc;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #88cfff;
+  border-top: 1px solid rgba(0, 229, 255, 0.3);
+  animation: fadeInUp 1s ease forwards;
 }
 
 /* Partner CTA in footer */
 .partner-btn {
   background: none;
   border: none;
-  color: #00e676;
+  color: #00e5ff;
   text-decoration: underline;
   cursor: pointer;
   font-weight: 600;
   font-size: 1rem;
   margin-left: 8px;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  user-select: none;
 }
 
 .partner-btn:hover {
-  color: #00c853;
-  text-shadow: 0 0 4px #00e676;
+  color: #00b0ff;
+  text-shadow: 0 0 6px #00e5ff;
 }

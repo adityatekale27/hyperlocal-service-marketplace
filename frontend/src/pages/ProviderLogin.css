@@ -1,49 +1,67 @@
-.provider-container {
-  max-width: 480px;
-  margin: 70px auto;
-  padding: 40px 50px;
-  background: #1a1a1a;
-  color: #e6e6e6;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Background: Gradient with layered blur for depth */
+body, html {
+  height: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
- 
- 
-  /* Fix height to avoid toggle jump */
-  min-height: 650px;  
+  background: linear-gradient(135deg, #1e1e2f, #111827);
+  color: #fff;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* Glassy container */
+.provider-container {
+  max-width: 528px;
+  margin: 88px auto;
+  padding: 44px 55px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(13.2px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 17.6px;
+  box-shadow: 0 8.8px 26.4px rgba(0, 0, 0, 0.6);
+  min-height: 715px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  animation: fadeIn 1.32s ease;
 }
 
-
+/* Toggle buttons for login/register */
 .toggle-section {
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 33px;
 }
 
 .toggle-section button {
   flex: 1;
-  padding: 12px;
-  background: #333;
-  color: #ccc;
+  padding: 13.2px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #eee;
   border: none;
-  font-size: 16px;
+  font-size: 17.6px;
+  font-weight: 500;
+  border-radius: 8.8px 8.8px 0 0;
+  margin: 0 5.5px;
   cursor: pointer;
-  transition: 0.3s;
-  border-radius: 8px 8px 0 0;
-  margin: 0 5px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.toggle-section button:hover {
+  background: rgba(0, 212, 255, 0.2);
+  transform: scale(1.02);
 }
 
 .toggle-section button.active-toggle {
-  background: #00796b;
-  color: #fff;
+  background: #00e5ff;
+  color: #000;
   font-weight: bold;
-}
-
-.toggle-section button:hover:not(.active-toggle) {
-  background: #444;
 }
 
 .form-box {
@@ -51,60 +69,123 @@
   flex-direction: column;
 }
 
+/* Scroll only for register form */
+.register-form {
+  overflow-y: auto;
+  max-height: 440px;
+  padding-right: 11px;
+}
+
+.register-form::-webkit-scrollbar {
+  width: 6.6px;
+}
+.register-form::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3.3px;
+}
+
+.form-box::-webkit-scrollbar {
+  width: 6.6px;
+}
+.form-box::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3.3px;
+}
+
+/* Form Styling */
 .form-box h2 {
-  margin-bottom: 20px;
-  font-weight: 600;
-  font-size: 22px;
+  margin-bottom: 22px;
+  font-weight: 700;
+  font-size: 26.4px;
   color: #00e676;
   text-align: center;
 }
 
 .form-box label {
-  margin-bottom: 5px;
-  font-size: 15px;
+  font-size: 15.4px;
+  margin-bottom: 4.4px;
   color: #ccc;
 }
 
 .form-box input {
-  padding: 10px;
-  margin-bottom: 16px;
-  font-size: 15px;
-  border: 1px solid #555;
-  border-radius: 6px;
-  background: #2a2a2a;
+  padding: 11px;
+  margin-bottom: 17.6px;
+  border: 1.1px solid #555;
+  border-radius: 8.8px;
+  background: #1f1f2e;
   color: #fff;
+  font-size: 16.5px;
 }
 
+/* Buttons */
 .action-button {
   background: #00e676;
-  color: #1a1a1a;
-  border: none;
-  padding: 12px;
-  font-size: 17px;
+  color: #000;
+  padding: 13.2px;
+  font-size: 18.7px;
   font-weight: bold;
-  border-radius: 8px;
+  border: none;
+  border-radius: 11px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background 0.3s, transform 0.2s;
 }
 
 .action-button:hover {
   background: #00c853;
+  transform: scale(1.03);
 }
+
+/* Forgot password */
 .forgot-password-btn {
   background: none;
   border: none;
   color: #00e676;
-  cursor: pointer;
-  font-size: 14px;
+  font-size: 15.4px;
   font-weight: 600;
-  margin: 0 0 16px auto;
-  display: block;
-  text-align: right;
-  padding: 0;
+  margin-left: auto;
   text-decoration: underline;
-  transition: color 0.3s ease;
+  cursor: pointer;
+  transition: color 0.3s;
 }
-
 .forgot-password-btn:hover {
   color: #00c853;
+}
+
+.service-input-container {
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  border-radius: 4px;
+  cursor: text;
+}
+
+.selected-services {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  flex-grow: 1;
+}
+
+.service-chip {
+  background-color: #007bff;
+  color: rgb(71, 70, 70);
+  padding: 3px 8px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9em;
+}
+
+.remove-chip-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 1;
+  font-size: 1.2em;
+  padding: 0 3px;
 }

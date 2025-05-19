@@ -1,112 +1,118 @@
 /* CustomerLogin.css */
 
+/* Container Styling */
 .login-container {
-  max-width: 480px;
-  width: 90%;
+  max-width: 528px; /* 480 + 10% */
+  width: 95%;
   margin: auto;
-  padding: 40px 50px;
-  background: #ffffff;
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  padding: 44px 55px; /* Increased padding */
+  background: linear-gradient(145deg, #f5f8ff, #ffffff);
+  border-radius: 16px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #222;
-  
-  /* Center vertically & horizontally */
+
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
-/* Fix height to avoid size jump */
-  min-height: 650px; /* Adjust this value if needed */
+  min-height: 715px; /* 650 + 10% */
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-
-
+/* Toggle Buttons */
 .toggle-buttons {
   display: flex;
   justify-content: center;
-  margin-bottom: 28px;
+  margin-bottom: 30px;
+  gap: 10px;
 }
 
 .toggle-buttons button {
   flex: 1;
-  padding: 14px 0;
+  padding: 16px 0;
   background: #e0e0e0;
   border: none;
   cursor: pointer;
-  font-weight: 700;
-  font-size: 17px;
-  transition: background-color 0.3s ease;
-  border-radius: 10px 10px 0 0;
-  margin: 0 6px;
-  color: #555;
+  font-weight: 800;
+  font-size: 18.7px; /* 17 + 10% */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border-radius: 12px 12px 0 0;
+  color: #444;
 }
 
 .toggle-buttons button.active {
-  background: #007bff;
+  background: linear-gradient(to right, #007bff, #00c6ff);
   color: white;
-  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4);
+  transform: scale(1.03);
 }
 
 .toggle-buttons button:hover:not(.active) {
-  background: #cfd8dc;
+  background: #dce3e7;
+  transform: scale(1.02);
 }
 
+/* Form Styling */
 .form {
   display: flex;
   flex-direction: column;
 }
 
 .form label {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-weight: 600;
-  font-size: 15px;
-  color: #444;
+  font-size: 16.5px;
+  color: #333;
 }
 
 .form input {
-  padding: 12px;
-  margin-bottom: 20px;
-  border: 1.8px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 0.3s ease;
+  padding: 13.2px; /* 12 + 10% */
+  margin-bottom: 22px;
+  border: 2px solid #ccc;
+  border-radius: 9px;
+  font-size: 17.6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background: #f9fbfd;
 }
 
 .form input:focus {
   border-color: #007bff;
   outline: none;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
 }
 
+/* Submit Button */
 .submit-btn {
-  background: #007bff;
+  background: linear-gradient(to right, #007bff, #00c6ff);
   color: white;
   border: none;
-  padding: 16px;
-  font-size: 18px;
-  font-weight: 700;
-  border-radius: 10px;
+  padding: 17.6px; /* 16 + 10% */
+  font-size: 19.8px;
+  font-weight: 800;
+  border-radius: 11px;
   cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s;
 }
 
 .submit-btn:hover {
-  background: #0056b3;
-  box-shadow: 0 6px 15px rgba(0, 86, 179, 0.4);
+  background: linear-gradient(to right, #0056b3, #0096d6);
+  box-shadow: 0 8px 18px rgba(0, 86, 179, 0.5);
+  transform: scale(1.03);
 }
 
+/* Forgot Password */
 .forgot-password-btn {
   background: none;
   border: none;
-  color: #0a1942;
+  color: #004080;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  margin: 0 0 16px auto;
+  font-size: 15.4px;
+  font-weight: 700;
+  margin: 0 0 18px auto;
   display: block;
   text-align: right;
   padding: 0;
@@ -115,5 +121,5 @@
 }
 
 .forgot-password-btn:hover {
-  color: #09123b;
+  color: #003366;
 }

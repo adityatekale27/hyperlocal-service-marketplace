@@ -19,6 +19,18 @@ const loadGoogleMapsScript = (callback) => {
     };
   }
 };
+const availableServices = [
+  "Plumber",
+  "Electrician",
+  "Carpenter",
+  "Painter",
+  "Cleaner",
+  "Gardener",
+  "Mechanic",
+  "Welder",
+  "AC Repair",
+  "Pest Control"
+];
 
 const ProviderLogin = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -31,7 +43,9 @@ const ProviderLogin = () => {
   const [regName, setRegName] = useState("");
   const [regEmail, setRegEmail] = useState("");
   const [regPhone, setRegPhone] = useState("");
-  const [regServices, setRegServices] = useState("");
+  const [regServices, setRegServices] = useState([]); // array of selected services
+  const [serviceInput, setServiceInput] = useState(""); // text input for filtering
+  const [showDropdown, setShowDropdown] = useState(false);
   const [regExperience, setRegExperience] = useState(0);
   const [regPassword, setRegPassword] = useState("");
   const [regConfirmPassword, setRegConfirmPassword] = useState("");
@@ -273,6 +287,7 @@ const ProviderLogin = () => {
           {error && <p className="error-message">{error}</p>}
         </form>
       ) : (
+        <div class="form-box register-form">
         <form className="form-box" onSubmit={handleRegisterSubmit}>
           <h2>Join as a Partner</h2>
 
@@ -303,15 +318,89 @@ const ProviderLogin = () => {
             onChange={(e) => setRegPhone(e.target.value)}
           />
 
-          <label>Service(s) Provided (comma separated)</label>
-          <input
-            type="text"
-            placeholder="e.g., Plumber, Electrician, Carpenter"
-            required
-            value={regServices}
-            onChange={(e) => setRegServices(e.target.value)}
-          />
+          <label>Service(s) Provided</label>
+            <div className="service-input-container" style={{ position: "relative" }}>
+            <div className="selected-services">
+            {regServices.map((service, idx) => (
+            <span key={idx} className="service-chip">
+            {service}
+              <button
+                type="button"
+                className="remove-chip-btn"
+                onClick={() => {
+                setRegServices(regServices.filter((_, i) => i !== idx));
+                }}
+              >
+          &times;
+              </button>
+      </span>
+    ))}
+    <input
+      type="text"
+      placeholder="Start typing to select services"
+      value={serviceInput}
+      onChange={(e) => {
+        setServiceInput(e.target.value);
+        setShowDropdown(true);
+      }}
+      onFocus={() => setShowDropdown(true)}
+      onBlur={() => {
+        // delay hiding dropdown to allow click on options
+        setTimeout(() => setShowDropdown(false), 150);
+      }}
+      style={{ border: "none", outline: "none", flexGrow: 1, minWidth: "150px" }}
+    />
+  </div>
 
+  {showDropdown && (
+    <ul className="service-dropdown" style={{
+      position: "absolute",
+      top: "100%",
+      left: 0,
+      right: 0,
+      maxHeight: "150px",
+      overflowY: "auto",
+      border: "1px solid #ccc",
+      backgroundColor: "grey",
+      zIndex: 1000,
+      listStyle: "none",
+      margin: 0,
+      padding: "5px 0",
+      color: "white"
+    }}>
+      {availableServices
+        .filter(
+          (s) =>
+            s.toLowerCase().includes(serviceInput.toLowerCase()) &&
+            !regServices.includes(s)
+        )
+        .map((service, idx) => (
+          <li
+            key={idx}
+            style={{ padding: "5px 10px", cursor: "pointer" }}
+            onMouseDown={(e) => {
+              // prevent blur event before onClick fires
+              e.preventDefault();
+            }}
+            onClick={() => {
+              setRegServices([...regServices, service]);
+              setServiceInput("");
+              setShowDropdown(false);
+            }}
+          >
+            {service}
+          </li>
+        ))}
+      {availableServices.filter(
+        (s) =>
+          s.toLowerCase().includes(serviceInput.toLowerCase()) &&
+          !regServices.includes(s)
+      ).length === 0 && (
+        <li style={{ padding: "5px 10px", color: "#999" }}>No matching services</li>
+      )}
+    </ul>
+  )}
+</div>
           <label>Experience (years)</label>
           <input
             type="number"
@@ -336,12 +425,17 @@ const ProviderLogin = () => {
             type="number"
             min="100"
             max="20000"
+            placeholder="100 to 20000"
             value={radiusMeters}
             onChange={(e) => {
-              const val = Number(e.target.value);
-              if (val >= 100 && val <= 20000) setRadiusMeters(val);
+                const val = Number(e.target.value);
+                if (val >= 100 && val <= 20000) setRadiusMeters(val);
             }}
           />
+          <small style={{ color: "gray" }}>
+              Must be between 100 and 20,000 meters (20 km)
+          </small>
+
 
           <button type="button" onClick={addServiceArea} style={{ marginBottom: "15px" }}>
             Add Service Area
@@ -384,6 +478,7 @@ const ProviderLogin = () => {
 
       {error && <p className="error-message">{error}</p>}
     </form>
+    </div>
   )}
 </div>
 );
