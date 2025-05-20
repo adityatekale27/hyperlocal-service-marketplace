@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema(
     name: { type: String, required: true },
     email: { type: String, unique: true, required: true, lowercase: true, trim: true, index: true },
     password: { type: String, required: true, select: false },
-    role: { type: String, enum: ["user", "provider", "admin"], default: "user", index: true },
+    role: { type: String, enum: ["user", "provider", "admin"], required: true, index: true },
     profilePhoto: { type: String },
     phone: {
       type: String,
@@ -15,16 +15,6 @@ const userSchema = new mongoose.Schema(
       validate: {
         validator: (v) => /^(\+91)?[6-9][0-9]{9}$/.test(v),
         message: (props) => `${props.value} is not a valid phone number!`,
-      },
-    },
-    address: {
-      street: String,
-      city: String,
-      state: String,
-      pincode: String,
-      location: {
-        type: { type: String, enum: ["Point"], default: "Point" },
-        coordinates: { type: [Number], required: true },
       },
     },
     deliveryAddresses: [
