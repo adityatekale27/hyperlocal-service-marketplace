@@ -1,14 +1,89 @@
-/* index.css (global styles for entire app) */
+/* index.css (enhanced global styles) */
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body, html {
   height: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-  color: #ffffff;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #f0f0f0;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+a {
+  color: #1E90FF; /* Dodger Blue for links */
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover, a:focus {
+  text-decoration: underline;
+  color: #63b3ed; /* lighter blue */
+  outline: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 6px;
+  border: none;
+  padding: 0.6em 1.2em;
+  background-color: #1E90FF;
+  color: #fff;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 12px rgb(30 144 255 / 0.3);
+}
+
+button:hover {
+  background-color: #3a99f7;
+  box-shadow: 0 6px 20px rgb(58 153 247 / 0.5);
+}
+
+input, select, textarea {
+  padding: 0.6em 1em;
+  border-radius: 6px;
+  border: 1.5px solid #4a6fa5;
+  background-color: #203a43;
+  color: #f0f0f0;
+  font-size: 1rem;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #1E90FF;
+  outline: none;
+  box-shadow: 0 0 8px #1E90FF;
+}
+
+.error-message {
+  color: #ff6b6b;
+  font-weight: 600;
+  margin-top: 0.5em;
+  font-size: 0.9rem;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #375a7f;
+  margin: 1.5em 0;
+}
+
+.container {
+  max-width: 480px;
+  margin: 3em auto;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2em 3em;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.7);
 }
