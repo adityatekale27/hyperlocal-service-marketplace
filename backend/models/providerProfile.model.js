@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
 
+/* Stores additional data for provider accounts */
 const providerProfileSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, unique: true, index: true },
-    servicesOfferedIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "Service" }],
+    servicesOfferedIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "Service" }], // What services provider offers
     bio: { type: String, maxLength: 1000 },
     experience: { type: Number, required: true, min: 0 },
-    isVerified: { type: Boolean, default: false, index: true },
+    isVerified: { type: Boolean, default: false, index: true }, // For admin-verified providers
     availability: [
       {
         day: { type: String, enum: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"], required: true },
@@ -28,6 +29,7 @@ const providerProfileSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Enables searching for providers near a location
 providerProfileSchema.index({ "serviceAreas.location": "2dsphere" });
 
 const ProviderProfile = mongoose.model("ProviderProfile", providerProfileSchema);

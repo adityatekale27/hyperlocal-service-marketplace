@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+/* Core user model for all roles: user, provider, admin */
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -37,6 +38,7 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Geospatial indexes for address & deliveryAddresses
 userSchema.index({ "address.location": "2dsphere" });
 userSchema.index({ "deliveryAddresses.location": "2dsphere" });
 

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+/* Stores user ↔ provider reviews after booking */
 const reviewSchema = new mongoose.Schema(
   {
     reviewerId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, index: true },
@@ -14,5 +15,4 @@ const reviewSchema = new mongoose.Schema(
 );
 
 const Review = mongoose.model("Review", reviewSchema);
-
 export default Review;

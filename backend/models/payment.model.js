@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+/* Stores payment records for bookings */
 const paymentSchema = new mongoose.Schema(
   {
     bookingId: { type: mongoose.Schema.Types.ObjectId, ref: "Booking", required: true, index: true },
@@ -15,5 +16,4 @@ const paymentSchema = new mongoose.Schema(
 );
 
 const Payment = mongoose.model("Payment", paymentSchema);
-
 export default Payment;

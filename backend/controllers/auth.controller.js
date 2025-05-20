@@ -3,6 +3,7 @@ import ProviderProfile from "../models/providerProfile.model.js";
 import generateToken from "../utils/generateToken.js";
 import bcrypt from "bcryptjs";
 
+/* Handles user, provider and admin registration */
 export const register = async (req, res) => {
   const { name, email, phone, password, role, bio, experience, availability, serviceAreas } = req.body;
 
@@ -11,13 +12,16 @@ export const register = async (req, res) => {
   }
 
   try {
+    // Check if user already exists with same email or phone
     const userExists = await User.findOne({ $or: [{ email: email.toLowerCase() }, { phone }] });
     if (userExists) {
       return res.status(400).json({ message: "User already exists" });
     }
 
+    // Hash provided password
     const hashedPassword = await bcrypt.hash(password, 12);
 
+    // Create new user
     const newUser = await User.create({
       name,
       email: email.toLowerCase(),
@@ -26,9 +30,10 @@ export const register = async (req, res) => {
       role,
     });
 
+    // If role is provider, create provider profile
     let providerProfileData = {};
     if (role === "provider") {
-      if (!experience || !(experience < 0) || !availability || !Array.isArray(availability) || !serviceAreas || !Array.isArray(serviceAreas)) {
+      if (!experience || experience < 0 || !availability || !Array.isArray(availability) || !serviceAreas || !Array.isArray(serviceAreas)) {
         return res.status(400).json({ message: "Missing required fields for Provider" });
       }
 
@@ -48,6 +53,7 @@ export const register = async (req, res) => {
       };
     }
 
+    // Generate JWT token using helper method
     const token = generateToken(newUser);
 
     return res.status(201).json({
@@ -67,6 +73,7 @@ export const register = async (req, res) => {
   }
 };
 
+/* Handles login via email or phone */
 export const login = async (req, res) => {
   const { email, phone, password } = req.body;
   if ((!email && !phone) || !password) {
@@ -74,6 +81,7 @@ export const login = async (req, res) => {
   }
 
   try {
+    // Validate user and password
     const user = await User.findOne(email ? { email: email.toLowerCase() } : { phone }).select("+password");
     if (!user) {
       return res.status(404).json({ message: "Invalid credentials" });
@@ -84,6 +92,7 @@ export const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
+    // If user is provider, fetch and include their profile
     let providerProfileData = {};
     if (user.role === "provider") {
       const providerProfile = await ProviderProfile.findOne({ userId: user._id });

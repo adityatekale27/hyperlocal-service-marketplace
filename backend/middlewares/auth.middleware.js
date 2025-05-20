@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 
+/* Middleware to check if the user is authenticated */
 export const isAuthenticated = async (req, res, next) => {
   const authHeader = req.headers.authorization;
-
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).json({ message: "Unauthorized: No token provided" });
   }
@@ -12,6 +12,7 @@ export const isAuthenticated = async (req, res, next) => {
     const token = authHeader.split(" ")[1];
     const decodedValue = jwt.verify(token, process.env.JWT_SECRET);
 
+    // Find user from token payload
     const user = await User.findById(decodedValue.id).select("-password");
     if (!user) {
       return res.status(401).json({ message: "Unauthorized: User not found" });
@@ -20,6 +21,7 @@ export const isAuthenticated = async (req, res, next) => {
       return res.status(401).json({ message: "Unauthorized: User is deactivated" });
     }
 
+    // Attach user to request for downstream access
     req.user = user;
     next();
   } catch (error) {
@@ -30,6 +32,7 @@ export const isAuthenticated = async (req, res, next) => {
   }
 };
 
+/* Middleware to check if the user has the required role */
 export const authorizeRole =
   (...roles) =>
   (req, res, next) => {
