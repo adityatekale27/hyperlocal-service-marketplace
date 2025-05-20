@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+/* Defines a service type available on the platform */
 const serviceSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, unique: true, trim: true, index: true },
