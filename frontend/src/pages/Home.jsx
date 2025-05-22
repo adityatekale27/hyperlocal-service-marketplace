@@ -1,22 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import './Home.css';
+import Navbar from "./Navbar/Navbar";
+import HeroSection from "./Hero/Hero";
+import PopularServices from "./Services/PopularService";
 
 const Home = () => {
   const navigate = useNavigate();
 
   return (
     <div className="home-container">
+      <Navbar />
       <div className="main-section">
-        <h1 className="title">Welcome to UrbanClone</h1>
-        <button
-          className="login-btn"
-          onClick={() => navigate("/login/customer")}
-        >
-          Login / Sign Up
-        </button>
+        <HeroSection />
       </div>
-
+      <PopularServices />
       <footer className="footer">
         <p>
           Want to provide services?{" "}
