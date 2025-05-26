@@ -7,7 +7,7 @@ const reviewSchema = new mongoose.Schema(
     revieweeId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, index: true },
     bookingId: { type: mongoose.Schema.Types.ObjectId, ref: "Booking", required: true, unique: true, index: true },
     rating: { type: Number, min: 1, max: 5, required: true },
-    review: { type: String, max: 5000 },
+    review: { type: String, max: 10000 },
     reviewedBy: { type: String, enum: ["user", "provider"], required: true },
     reviewedFor: { type: String, enum: ["user", "provider"], required: true },
   },

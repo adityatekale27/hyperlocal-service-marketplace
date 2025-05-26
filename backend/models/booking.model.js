@@ -3,11 +3,10 @@ import mongoose from "mongoose";
 /* Stores individual service bookings */
 const bookingSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // Customer who booked
-    providerId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // Provider assigned
-    serviceId: { type: mongoose.Schema.Types.ObjectId, ref: "Service", required: true }, // Service selected
-    scheduledTime: { type: Date, required: true }, // When the service is scheduled
-    status: { type: String, enum: ["scheduled", "in_progress", "completed", "cancelled"], default: "scheduled", index: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, index: true }, // Customer who booked
+    providerId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, index: true }, // Provider assigned
+    serviceId: { type: mongoose.Schema.Types.ObjectId, ref: "Service", required: true, index: true }, // Service selected
+    status: { type: String, enum: ["awaiting_provider", "scheduled", "in_progress", "completed", "cancelled", "unassigned"], default: "awaiting_provider", index: true },
     paymentStatus: { type: String, enum: ["pending", "paid", "failed"], default: "pending", index: true },
     address: {
       street: String,
@@ -21,6 +20,12 @@ const bookingSchema = new mongoose.Schema(
     },
     amount: { type: Number, required: true, min: 0 },
     notes: { type: String, max: 1000 },
+    scheduledTime: { type: Date, required: true }, // When the service is scheduled
+    workStartTime: { type: Date },
+    workEndTime: { type: Date },
+    providerResponseDeadline: { type: Date, default: () => new Date(Date.now() + 15 * 60 * 1000) },
+    providerAssignmentAttempts: { type: Number, default: 1 },
+    maxAttempts: { type: Number, default: 3 },
   },
   { timestamps: true }
 );
