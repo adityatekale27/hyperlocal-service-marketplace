@@ -50,7 +50,7 @@ const CustomerLogin = () => {
         // Example: save token to localStorage
         localStorage.setItem("token", data.token);
         // Redirect to home page
-        window.location.href = "/home";
+        window.location.href = "/";
       } else {
         setError(data.message || "Login failed");
       }
@@ -84,7 +84,7 @@ const CustomerLogin = () => {
 
       if (res.ok && data.success) {
         localStorage.setItem("token", data.token);
-        window.location.href = "/home";
+        window.location.href = "/";
       } else {
         setError(data.message || "Signup failed");
       }

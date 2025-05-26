@@ -2,30 +2,34 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 60px 40px;
+  padding: 40px 20px; /* reduced left and right padding */
   color: #fff;
-  gap: 50px;
+  gap: 20px; /* slightly increased to accommodate enlarged elements */
   flex-wrap: wrap;
+  max-width: 1400px; /* limit max width to avoid too much spacing on ultra-wide screens */
+  margin: 0 auto;
+  transform: scale(1.052); /* increase overall size */
+  transform-origin: top center;
 }
 
 .hero-left,
 .hero-right {
-  flex: 1 1 450px;
-  max-width: 600px;
+  flex: 1 1 480px;
+  max-width: 700px; 
 }
 
 .hero-content h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 20px;
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 24px;
   color: #00e5ff;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.8px;
 }
 
 .hero-content p {
-  font-size: 1.3rem;
-  margin-bottom: 30px;
+  font-size: 1.5rem;
+  margin-bottom: 36px;
   color: #ccc;
 }
 
@@ -33,86 +37,91 @@
   display: inline-block;
   background-color: #00e5ff;
   color: #000814;
-  padding: 14px 32px;
-  font-weight: 700;
-  border-radius: 12px;
+  padding: 16px 36px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  border-radius: 14px;
   text-decoration: none;
-  box-shadow: 0 4px 18px rgba(0, 229, 255, 0.4);
+  box-shadow: 0 5px 22px rgba(0, 229, 255, 0.4);
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .hero-btn:hover {
-  background-color: #00b0ff;
-  transform: scale(1.05);
+  background-color: #ffffff;
+  transform: scale(1.07);
 }
 
 .hero-image {
-  margin-top: 40px;
+  margin-top: 80px;
   text-align: center;
+  transform: scale(1.6);
 }
 
 .hero-image img {
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0, 229, 255, 0.4);
+  border-radius: 20px;
+  box-shadow: 0 10px 24px rgba(0, 229, 255, 0.4);
+  max-width: 100%;
 }
 
 .hero-right h2 {
-  font-size: 2.2rem;
-  margin-bottom: 30px;
+  font-size: 2.6rem;
+  margin-bottom: 36px;
   color: #00e5ff;
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: 1.2px;
+  letter-spacing: 1.5px;
 }
 
 .domain-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  gap: 35px;
 }
 
 .domain-card {
   background: rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 24px 18px;
+  border-radius: 18px;
+  padding: 28px 22px;
   text-align: center;
-  box-shadow: 0 4px 16px rgba(0, 229, 255, 0.15);
+  box-shadow: 0 5px 18px rgba(0, 229, 255, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .domain-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 30px rgba(0, 229, 255, 0.35);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 34px rgba(0, 229, 255, 0.35);
 }
 
 .domain-card h3 {
-  font-size: 1.3rem;
-  margin-bottom: 15px;
+  font-size: 1.5rem;
+  margin-bottom: 18px;
   color: #fff;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .domain-btn {
   background-color: #00e5ff;
   color: #000814;
-  padding: 10px 26px;
-  border-radius: 12px;
+  padding: 12px 30px;
+  border-radius: 14px;
   font-weight: 700;
+  font-size: 1.05rem;
   text-decoration: none;
   display: inline-block;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .domain-btn:hover {
-  background-color: #00b0ff;
-  transform: scale(1.05);
+  background-color: #ffffff;
+  transform: scale(1.06);
 }
 
 /* Responsive for smaller devices */
 @media (max-width: 900px) {
   .hero-section {
     flex-direction: column;
-    padding: 40px 20px;
+    padding: 30px 16px;
+    transform: scale(1.05); /* reduce scaling on smaller devices */
   }
 
   .hero-left,
@@ -129,12 +138,25 @@
   .domain-grid {
     grid-template-columns: 1fr;
   }
+
+  .hero-content h1 {
+    font-size: 2.3rem;
+  }
+
+  .hero-content p {
+    font-size: 1.2rem;
+  }
+
+  .hero-btn {
+    font-size: 1rem;
+    padding: 12px 28px;
+  }
 }
 
 .domain-icon {
-  font-size: 3.5rem;
+  font-size: 4rem;
   color: #00e5ff;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
   animation: bounce 2.5s ease-in-out infinite;
 }
 

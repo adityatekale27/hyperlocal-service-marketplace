@@ -9,7 +9,7 @@
 
 body, html {
   height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif,'Poppins', sans-serif;
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   color: #f0f0f0;
   line-height: 1.6;
