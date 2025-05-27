@@ -20,11 +20,11 @@ router.get("/user", isAuthenticated, authorizeRole("user"), getUserBookings);
 // Get all bookings assigned to provider
 router.get("/provider", isAuthenticated, authorizeRole("provider"), getProviderBookings);
 
-// Get booking by ID
-router.get("/:id", isAuthenticated, getBookingById);
-
 // Create a booking - by user
 router.post("/", isAuthenticated, authorizeRole("user"), createBooking);
+
+// Get booking by ID
+router.get("/:id", isAuthenticated, getBookingById);
 
 // Update booking status (accept, cancel, complete)
 router.patch("/:id/status", isAuthenticated, updateBookingStatus);
