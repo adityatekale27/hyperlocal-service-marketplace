@@ -15,9 +15,7 @@ export const isAuthenticated = async (req, res, next) => {
 
     // Find user from token payload
     const user = await User.findById(decodedValue.id).select("-password");
-
     if (!user) return handleError(res, "User does not exists", 404);
-    if (!user.isActive) return handleError(res, "Unauthorized: User is deactivated", 401);
 
     // Attach user to request for downstream access
     req.user = user;

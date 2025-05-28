@@ -7,12 +7,28 @@ import pincodeValidator from "pincode-validator";
 // Get all providers
 export const getAllProviders = async (req, res) => {
   try {
-    const providers = await User.find({ role: "provider", isActive: true }).select("-password -__v");
+    const providers = await User.find({ role: "provider", isActive: true }).select("-password -__v").lean();
+
+    const providerProfiles = await ProviderProfile.find({
+      userId: { $in: providers.map((p) => p._id) },
+    }).lean();
+
+    const profileMap = {};
+    providerProfiles.forEach((profile) => {
+      profileMap[profile.userId.toString()] = profile;
+    });
+
+    const mergedProviders = providers.map((provider) => {
+      return {
+        ...provider,
+        providerProfile: profileMap[provider._id.toString()] || null,
+      };
+    });
 
     return res.status(200).json({
       success: true,
-      count: providers.length,
-      data: providers,
+      count: mergedProviders.length,
+      data: mergedProviders,
     });
   } catch (error) {
     return handleError(res, error, 500, "Failed to fetch providers");
