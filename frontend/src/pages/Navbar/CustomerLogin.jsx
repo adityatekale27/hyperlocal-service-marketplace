@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import './CustomerLogin.css';
 
 const CustomerLogin = () => {
@@ -7,6 +8,8 @@ const CustomerLogin = () => {
   // Form fields state
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [role, setRole] = useState("user");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -28,9 +31,10 @@ const CustomerLogin = () => {
     resetFields();
   };
 
-  // API endpoint URLs - replace with backend URLs
-  const LOGIN_API = "/api/login";
-  const SIGNUP_API = "/api/signup";
+  const SIGNUP_API = "http://localhost:5000/api/auth/register";
+  const LOGIN_API = "http://localhost:5000/api/auth/login";
+
+
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -47,10 +51,9 @@ const CustomerLogin = () => {
       const data = await res.json();
 
       if (res.ok && data.success) {
-        // Example: save token to localStorage
         localStorage.setItem("token", data.token);
-        // Redirect to home page
-        window.location.href = "/";
+        // ✅ React Router SPA-friendly redirect
+        navigate("/");
       } else {
         setError(data.message || "Login failed");
       }
@@ -77,9 +80,13 @@ const CustomerLogin = () => {
       const res = await fetch(SIGNUP_API, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fullName, email, password }),
+        body: JSON.stringify({ name: fullName, email, phone, role: "user" , password, }),
       });
-
+      const info = await res.json();
+      if (!res.ok) {
+        console.error("Signup error:", info);
+        // show error to user
+      }
       const data = await res.json();
 
       if (res.ok && data.success) {
@@ -171,6 +178,15 @@ const CustomerLogin = () => {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            disabled={loading}
+          />
+          <label>Phone Number</label>
+          <input
+            type="tel"
+            placeholder="Enter your phone number"
+            required
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             disabled={loading}
           />
 
