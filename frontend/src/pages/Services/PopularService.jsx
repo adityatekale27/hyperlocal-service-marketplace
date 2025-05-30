@@ -40,7 +40,6 @@ const PopularServices = () => {
             <h3 className="service-title">{service.title}</h3>
             <p className="service-description">{service.description}</p>
             <p className="service-price">{service.price}</p>
-            <button className="book-btn">Book Now</button>
           </div>
         </div>
       ))}

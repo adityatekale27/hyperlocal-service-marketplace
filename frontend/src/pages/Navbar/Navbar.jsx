@@ -9,10 +9,9 @@ import Profile from "./Profile";
 const Navbar = () => {
   return (
     <nav className="navbar">
-      {/* Left - Logo */}
       <div className="navbar-left">
         <Link to="/" className="navbar-logo">
-          UrbanClone
+          QuickServe
         </Link>
       </div>
 

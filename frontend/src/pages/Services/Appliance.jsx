@@ -1,43 +1,44 @@
 import React, { useState } from 'react';
-import { FaFaucet, FaWrench, FaToilet, FaTools } from 'react-icons/fa';
+import './Cleaning.css';
+import { FaTv, FaSnowflake, FaTshirt, FaFire } from 'react-icons/fa';
 
-const plumbingServices = [
+const applianceServices = [
   {
     id: 1,
-    name: "Tap Installation",
-    icon: <FaFaucet />,
-    description: "Installation of new taps in kitchen, bathroom, etc.",
-    price: "₹299",
-    duration: "30-45 mins",
-  },
-  {
-    id: 2,
-    name: "Leakage Repair",
-    icon: <FaWrench />,
-    description: "Fixing leakages in pipelines, taps, or tanks.",
-    price: "₹399",
+    name: "TV Installation & Repair",
+    icon: <FaTv />,
+    description: "LED/LCD TV mounting, setup, and basic repair services.",
+    price: "₹499",
     duration: "1 hour",
   },
   {
-    id: 3,
-    name: "Toilet Repair",
-    icon: <FaToilet />,
-    description: "Repairing flushing systems and clogged toilets.",
-    price: "₹499",
+    id: 2,
+    name: "AC Service & Repair",
+    icon: <FaSnowflake />,
+    description: "Cooling issue check, gas refill, and full AC servicing.",
+    price: "₹899",
     duration: "1-2 hours",
   },
   {
+    id: 3,
+    name: "Washing Machine Repair",
+    icon: <FaTshirt />,
+    description: "Motor issues, water leakage, and drum malfunction fixes.",
+    price: "₹699",
+    duration: "1.5 hours",
+  },
+  {
     id: 4,
-    name: "Water Tank Installation",
-    icon: <FaTools />,
-    description: "Installing overhead or underground water tanks.",
-    price: "₹999",
-    duration: "2-3 hours",
+    name: "Microwave & Stove Repair",
+    icon: <FaFire />,
+    description: "Heating issues, buttons malfunction, or minor part replacement.",
+    price: "₹599",
+    duration: "1 hour",
   },
 ];
 
-const Plumbing = () => {
-  const [selectedService, setSelectedService] = useState(plumbingServices[0]);
+const ApplianceRepair = () => {
+  const [selectedService, setSelectedService] = useState(applianceServices[0]);
 
   const handleSelect = (service) => {
     setSelectedService(service);
@@ -49,8 +50,8 @@ const Plumbing = () => {
   };
 
   return (
-    <div className="cleaning-container">
-      <h2 className="cleaning-title">Plumbing Services</h2>
+    <div className="cleaning-main">
+      <h2 className="cleaning-title">Appliance Repair Services</h2>
       <div className="cleaning-flex-layout">
         {/* Left: Selected Service Box */}
         <div className="selected-service-box">
@@ -64,7 +65,7 @@ const Plumbing = () => {
 
         {/* Right: Services Grid */}
         <div className="cleaning-grid">
-          {plumbingServices.map((service) => (
+          {applianceServices.map((service) => (
             <div className="cleaning-card" key={service.id}>
               <div className="icon">{service.icon}</div>
               <h3>{service.name}</h3>
@@ -84,4 +85,4 @@ const Plumbing = () => {
   );
 };
 
-export default Plumbing;
+export default ApplianceRepair;

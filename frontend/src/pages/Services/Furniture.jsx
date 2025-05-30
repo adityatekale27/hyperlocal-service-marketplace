@@ -1,43 +1,43 @@
 import React, { useState } from 'react';
-import { FaFaucet, FaWrench, FaToilet, FaTools } from 'react-icons/fa';
+import { GiWoodPile, GiTable, GiDoor, GiSofa } from 'react-icons/gi';
 
-const plumbingServices = [
+const furnitureServices = [
   {
     id: 1,
-    name: "Tap Installation",
-    icon: <FaFaucet />,
-    description: "Installation of new taps in kitchen, bathroom, etc.",
+    name: "Chair Repair",
+    icon: <GiWoodPile />,
+    description: "Fixing broken legs, joints, or seat replacements for all types of chairs.",
     price: "₹299",
-    duration: "30-45 mins",
+    duration: "45 mins - 1 hour",
   },
   {
     id: 2,
-    name: "Leakage Repair",
-    icon: <FaWrench />,
-    description: "Fixing leakages in pipelines, taps, or tanks.",
-    price: "₹399",
-    duration: "1 hour",
-  },
-  {
-    id: 3,
-    name: "Toilet Repair",
-    icon: <FaToilet />,
-    description: "Repairing flushing systems and clogged toilets.",
+    name: "Table Fix & Polish",
+    icon: <GiTable />,
+    description: "Table surface refinishing, wobbly leg fixing, and polishing.",
     price: "₹499",
     duration: "1-2 hours",
   },
   {
+    id: 3,
+    name: "Door & Handle Repair",
+    icon: <GiDoor />,
+    description: "Stuck doors, loose handles, and alignment issues.",
+    price: "₹399",
+    duration: "1 hour",
+  },
+  {
     id: 4,
-    name: "Water Tank Installation",
-    icon: <FaTools />,
-    description: "Installing overhead or underground water tanks.",
-    price: "₹999",
-    duration: "2-3 hours",
+    name: "Sofa Frame Fixing",
+    icon: <GiSofa />,
+    description: "Repairing wooden/metal frames and tightening structural joints.",
+    price: "₹699",
+    duration: "1.5 hours",
   },
 ];
 
-const Plumbing = () => {
-  const [selectedService, setSelectedService] = useState(plumbingServices[0]);
+const FurnitureRepair = () => {
+  const [selectedService, setSelectedService] = useState(furnitureServices[0]);
 
   const handleSelect = (service) => {
     setSelectedService(service);
@@ -50,7 +50,7 @@ const Plumbing = () => {
 
   return (
     <div className="cleaning-container">
-      <h2 className="cleaning-title">Plumbing Services</h2>
+      <h2 className="cleaning-title">Furniture Repair & Installation</h2>
       <div className="cleaning-flex-layout">
         {/* Left: Selected Service Box */}
         <div className="selected-service-box">
@@ -64,7 +64,7 @@ const Plumbing = () => {
 
         {/* Right: Services Grid */}
         <div className="cleaning-grid">
-          {plumbingServices.map((service) => (
+          {furnitureServices.map((service) => (
             <div className="cleaning-card" key={service.id}>
               <div className="icon">{service.icon}</div>
               <h3>{service.name}</h3>
@@ -84,4 +84,4 @@ const Plumbing = () => {
   );
 };
 
-export default Plumbing;
+export default FurnitureRepair;

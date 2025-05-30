@@ -7,6 +7,13 @@ import ProviderLogin from "./pages/Navbar/ProviderLogin";
 import './index.css';
 import Profile from "./pages/Navbar/Profile";
 import PopularServices from "./pages/Services/PopularService";
+import  Cleaning from './pages/Services/Cleaning'
+import SalonSpa from "./pages/Services/SalonSpa";
+import Appliance from "./pages/Services/Appliance"
+import Plumbing from "./pages/Services/Plumber";
+import Electrician from "./pages/Services/Electrician";
+import FurnitureRepair from "./pages/Services/Furniture";
+import Payment from "./pages/Payment";
 
 const App = () => {
   return (
@@ -17,6 +24,13 @@ const App = () => {
       <Route path="/cart" element={<Cart />} />  
       <Route path="/profile" element={<Profile />} />
       <Route path="/services" element={<PopularServices />} />
+      <Route path="/services/cleaning" element={<Cleaning />} />
+      <Route path="/services/salon-spa" element={<SalonSpa />} />
+      <Route path="/services/appliance-repair" element={<Appliance />}/>
+      <Route path="/services/plumbing" element={< Plumbing />} />
+      <Route path="/services/electrician" element={< Electrician />} />
+      <Route path="/services/furniture" element={< FurnitureRepair />} />
+      <Route path="/payment" element={<Payment />} />
     </Routes>
   );
 };

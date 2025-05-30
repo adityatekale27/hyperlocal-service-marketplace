@@ -1,43 +1,44 @@
 import React, { useState } from 'react';
-import { FaFaucet, FaWrench, FaToilet, FaTools } from 'react-icons/fa';
+import { FaPlug, FaLightbulb, FaFan, FaBolt } from 'react-icons/fa';
+import './Cleaning.css'
 
-const plumbingServices = [
+const electricianServices = [
   {
     id: 1,
-    name: "Tap Installation",
-    icon: <FaFaucet />,
-    description: "Installation of new taps in kitchen, bathroom, etc.",
+    name: "Fan Installation",
+    icon: <FaFan />,
+    description: "Ceiling or wall fan fitting and electrical wiring setup.",
     price: "₹299",
-    duration: "30-45 mins",
+    duration: "30-60 mins",
   },
   {
     id: 2,
-    name: "Leakage Repair",
-    icon: <FaWrench />,
-    description: "Fixing leakages in pipelines, taps, or tanks.",
-    price: "₹399",
-    duration: "1 hour",
+    name: "Light Fitting",
+    icon: <FaLightbulb />,
+    description: "Tube lights, bulbs, chandeliers, and wall light installations.",
+    price: "₹199",
+    duration: "30-45 mins",
   },
   {
     id: 3,
-    name: "Toilet Repair",
-    icon: <FaToilet />,
-    description: "Repairing flushing systems and clogged toilets.",
-    price: "₹499",
-    duration: "1-2 hours",
+    name: "Socket & Switch Repair",
+    icon: <FaPlug />,
+    description: "Fixing or replacing faulty sockets and switches.",
+    price: "₹249",
+    duration: "30 mins",
   },
   {
     id: 4,
-    name: "Water Tank Installation",
-    icon: <FaTools />,
-    description: "Installing overhead or underground water tanks.",
-    price: "₹999",
-    duration: "2-3 hours",
+    name: "Power Backup Setup",
+    icon: <FaBolt />,
+    description: "Inverter connection, testing, and power backup management.",
+    price: "₹799",
+    duration: "1-2 hours",
   },
 ];
 
-const Plumbing = () => {
-  const [selectedService, setSelectedService] = useState(plumbingServices[0]);
+const Electrician = () => {
+  const [selectedService, setSelectedService] = useState(electricianServices[0]);
 
   const handleSelect = (service) => {
     setSelectedService(service);
@@ -50,7 +51,7 @@ const Plumbing = () => {
 
   return (
     <div className="cleaning-container">
-      <h2 className="cleaning-title">Plumbing Services</h2>
+      <h2 className="cleaning-title">Electrician Services</h2>
       <div className="cleaning-flex-layout">
         {/* Left: Selected Service Box */}
         <div className="selected-service-box">
@@ -64,7 +65,7 @@ const Plumbing = () => {
 
         {/* Right: Services Grid */}
         <div className="cleaning-grid">
-          {plumbingServices.map((service) => (
+          {electricianServices.map((service) => (
             <div className="cleaning-card" key={service.id}>
               <div className="icon">{service.icon}</div>
               <h3>{service.name}</h3>
@@ -84,4 +85,4 @@ const Plumbing = () => {
   );
 };
 
-export default Plumbing;
+export default Electrician;

@@ -24,18 +24,6 @@ const Home = () => {
       <PopularServices />
       
       <footer className="footer">
-        {!isLoggedIn ? (
-          <p>
-            Please <button onClick={() => navigate("/login")}>Login</button> to access your account.
-          </p>
-        ) : (
-          <p>
-            Welcome back! <button onClick={() => {
-              localStorage.removeItem("token");
-              setIsLoggedIn(false);
-            }}>Logout</button>
-          </p>
-        )}
         <p>
           Want to provide services?{" "}
           <button
