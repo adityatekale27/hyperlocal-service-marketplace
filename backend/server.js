@@ -7,6 +7,7 @@ import authRoutes from "./routes/auth.route.js";
 import serviceRoutes from "./routes/service.route.js";
 import bookingRoutes from "./routes/booking.route.js";
 import userRoutes from "./routes/user.route.js";
+import reviewRoutes from "./routes/review.route.js";
 
 dotenv.config();
 connectDB();
@@ -22,6 +23,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/service", serviceRoutes);
 app.use("/api/booking", bookingRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/review", reviewRoutes);
 
 // Start cron jobs
 startReassigningProvider();
