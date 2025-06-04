@@ -1,14 +1,22 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
-import { BrowserRouter } from "react-router-dom";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import "./index.css";
-import { CartProvider } from "./pages/Navbar/CartContext.jsx";
+import App from "./App.jsx";
+import { AuthProvider } from "./contexts/authContext.jsx";
+import { BookingProvider } from "./contexts/bookingContext.jsx";
+import { ServiceSearchProvider } from "./contexts/serviceSearchContext.jsx";
+import { ThemeProvider } from "./contexts/themeContext.jsx";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-    <BrowserRouter>
-      <CartProvider>
-        <App />
-      </CartProvider>
-    </BrowserRouter>
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <AuthProvider>
+      <BookingProvider>
+        <ServiceSearchProvider>
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
+        </ServiceSearchProvider>
+      </BookingProvider>
+    </AuthProvider>
+  </StrictMode>
 );

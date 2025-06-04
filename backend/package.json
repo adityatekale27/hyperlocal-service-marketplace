@@ -1,7 +1,7 @@
 {
-  "name": "hyperlocal-service-backend",
+  "name": "urban-pro-backend",
   "version": "1.0.0",
-  "description": "Node and Express based backend for a Hyperlocal Service Marketplace platform.",
+  "description": "Node and Express based backend for a UrbanPro - Hyperlocal Service Marketplace platform.",
   "license": "MIT",
   "author": "Infotact - Web Development Group 7",
   "type": "module",
