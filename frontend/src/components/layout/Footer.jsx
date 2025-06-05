@@ -1,27 +1,31 @@
 import { Facebook, Twitter, Instagram, Linkedin, Send } from "lucide-react";
+import { Link } from "react-router-dom";
+import { categories } from "../../data/mockData.js";
 
 const Footer = () => {
+  const footerCategories = categories.slice(0, 5);
+
   return (
     <footer className="bg-gray-900 text-white">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="container max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {/* Company Info */}
           <div>
-            <h3 className="text-xl font-bold mb-4">UrbanPro</h3>
+            <h3 className="text-xl font-bold mb-2">UrbanPro</h3>
             <p className="text-gray-400 mb-4">Connecting you with skilled professionals for all your service needs.</p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <Link to="#" className="text-gray-400 hover:text-white transition-colors">
                 <Facebook className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              </Link>
+              <Link to="#" className="text-gray-400 hover:text-white transition-colors">
                 <Twitter className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              </Link>
+              <Link to="#" className="text-gray-400 hover:text-white transition-colors">
                 <Instagram className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              </Link>
+              <Link to="#" className="text-gray-400 hover:text-white transition-colors">
                 <Linkedin className="h-5 w-5" />
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -30,29 +34,24 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/about" className="text-gray-400 hover:text-white transition-colors">
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/services" className="text-gray-400 hover:text-white transition-colors">
                   Services
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/become-provider" className="text-gray-400 hover:text-white transition-colors">
                   Become a Provider
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/contact" className="text-gray-400 hover:text-white transition-colors">
                   Contact Us
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -61,44 +60,12 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Service Categories</h3>
             <ul className="space-y-2">
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Home Cleaning
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Salon & Spa
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Appliance Repair
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Plumbing
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Electrical
-                </a>
-              </li>
+              {footerCategories.map((category) => (
+                <li key={category.id} className="text-gray-400 hover:text-white transition-colors">
+                  <Link to={`/categories/${category.id}`}>{category.name}</Link>
+                </li>
+              ))}
             </ul>
-          </div>
-
-          {/* Newsletter */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Subscribe</h3>
-            <p className="text-gray-400 mb-4">Stay updated with our latest services and offers.</p>
-            <div className="flex">
-              <input type="email" placeholder="Your email" className="px-4 py-2 w-full rounded-l-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-900" />
-              <button className="bg-indigo-600 hover:bg-indigo-700 rounded-r-md px-4 flex items-center justify-center transition-colors">
-                <Send className="h-4 w-4" />
-              </button>
-            </div>
           </div>
         </div>
 
@@ -108,19 +75,14 @@ const Footer = () => {
             <div className="mt-4 md:mt-0">
               <ul className="flex space-x-6">
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+                  <Link to="#" className="text-gray-400 hover:text-white text-sm transition-colors">
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+                  <Link to="#" className="text-gray-400 hover:text-white text-sm transition-colors">
                     Terms of Service
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-                    FAQ
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom";
 import Layout from "../components/layout/Layout.jsx";
-import { Shield, Award, Users, Globe, Star, CheckCircle, TrendingUp, Heart } from "lucide-react";
+import { Shield, Award, Star, Heart } from "lucide-react";
 
 const About = () => {
   return (
@@ -10,17 +11,19 @@ const About = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent" />
         <div className="container mx-auto px-4 relative">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Transforming Lives Through
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-orange-500">Quality Service</span>
             </h1>
-            <p className="text-xl text-indigo-100">Our journey of connecting exceptional service providers with customers who deserve nothing but the best.</p>
+            <p className="text-lg md:text-lg lg:text-xl text-indigo-100">
+              Our journey of connecting exceptional service providers with customers who deserve nothing but the best.
+            </p>
           </div>
         </div>
       </div>
 
       {/* Our Story Section */}
-      <div className="container mx-auto px-4 py-16">
+      <div className="container max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-16">
           <div>
             <div className="inline-flex items-center bg-indigo-100 rounded-full px-4 py-1 text-indigo-600 font-medium text-sm mb-6">Our Story</div>
@@ -49,7 +52,6 @@ const About = () => {
             </div>
           </div>
         </div>
-
         {/* Timeline */}
         <div className="max-w-4xl mx-auto mb-16">
           <h3 className="text-2xl font-bold text-gray-900 text-center mb-12">Our Journey</h3>
@@ -85,7 +87,7 @@ const About = () => {
                 <div className="flex-1 md:w-1/2" />
                 <div className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-white border-4 border-indigo-600 z-10" />
                 <div className="flex-1 md:w-1/2">
-                  <div className={`bg-white rounded-xl shadow-sm p-6 mx-4 ${index % 2 === 0 ? "md:ml-12" : "md:mr-12"}`}>
+                  <div className={`bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow p-6 mx-4 ${index % 2 === 0 ? "md:ml-12" : "md:mr-12"}`}>
                     <span className="inline-block px-4 py-1 bg-indigo-100 text-indigo-600 rounded-full text-sm font-medium mb-4">{milestone.year}</span>
                     <h4 className="text-xl font-semibold text-gray-900 mb-2">{milestone.title}</h4>
                     <p className="text-gray-600">{milestone.description}</p>
@@ -95,7 +97,6 @@ const About = () => {
             ))}
           </div>
         </div>
-
         {/* Values */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {[
@@ -115,7 +116,7 @@ const About = () => {
               description: "We strive for excellence in every service delivery and customer interaction.",
             },
           ].map((value, index) => (
-            <div key={index} className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+            <div key={index} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center mb-6">
                 <value.icon className="h-6 w-6 text-indigo-600" />
               </div>
@@ -125,38 +126,23 @@ const About = () => {
           ))}
         </div>
 
-        {/* Testimonial */}
-        <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-3xl p-12 mb-16">
-          <div className="max-w-3xl mx-auto text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">What Our Community Says</h3>
-            <blockquote className="text-xl text-gray-600 italic mb-8">
-              "UrbanPro has transformed how I run my business. The platform's commitment to quality and customer satisfaction aligns perfectly with my values."
-            </blockquote>
-            <div className="flex items-center justify-center">
-              <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg" alt="John Smith" className="w-12 h-12 rounded-full object-cover" />
-              <div className="ml-4 text-left">
-                <p className="font-medium text-gray-900">John Smith</p>
-                <p className="text-sm text-gray-600">Professional Plumber, 3 years with UrbanPro</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Call to Action */}
-        <div className="text-center max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">Join Our Growing Community</h2>
-          <p className="text-xl text-gray-600 mb-8">Whether you're looking for quality services or want to grow your business, UrbanPro is here to help you succeed.</p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a
-              href="/services"
-              className="inline-flex items-center justify-center px-8 py-4 border border-transparent rounded-xl text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm">
-              Find Services
-            </a>
-            <a
-              href="/become-provider"
-              className="inline-flex items-center justify-center px-8 py-4 border-2 border-indigo-600 rounded-xl text-base font-medium text-indigo-600 hover:bg-indigo-50 transition-colors">
-              Become a Provider
-            </a>
+        <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-3xl p-12 mb-8">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Join Our Growing Community</h2>
+            <p className="text-xl text-gray-600 mb-8">Whether you're looking for quality services or want to grow your business, UrbanPro is here to help you succeed.</p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Link
+                to="/services"
+                className="inline-flex items-center justify-center px-6 py-2 border border-transparent rounded-full text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm">
+                Find Services
+              </Link>
+              <Link
+                to="/become-provider"
+                className="inline-flex items-center justify-center px-6 py-2 border-2 border-indigo-600 rounded-full text-base font-medium text-indigo-600 hover:bg-indigo-100/50 transition-colors">
+                Become a Provider
+              </Link>
+            </div>
           </div>
         </div>
       </div>

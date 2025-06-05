@@ -5,15 +5,14 @@ const ServiceSearchContext = createContext();
 
 // Provider component
 export const ServiceSearchProvider = ({ children }) => {
-  const [searchTerm, setSearchTermState] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("service-search") || "";
-    }
-    return "";
-  });
+  const [searchTerm, setSearchTermState] = useState("");
 
   useEffect(() => {
-    localStorage.setItem("service-search", searchTerm);
+    if (searchTerm) {
+      localStorage.setItem("service-search", JSON.stringify(searchTerm));
+    } else {
+      localStorage.removeItem("service-search");
+    }
   }, [searchTerm]);
 
   const setSearchTerm = (term) => {

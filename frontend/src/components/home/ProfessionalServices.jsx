@@ -2,8 +2,8 @@ import { Shield, Award, Clock, ThumbsUp } from "lucide-react";
 
 const ProfessionalServices = () => {
   return (
-    <section className="py-16 bg-gradient-to-b from-white to-gray-50">
-      <div className="container mx-auto px-4">
+    <section className="py-20 bg-gradient-to-b from-white to-red-50">
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-12">
           {/* Image Section */}
           <div className="lg:w-1/2">

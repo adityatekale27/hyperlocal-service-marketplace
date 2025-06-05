@@ -1,4 +1,5 @@
 import { Search, Calendar, UserCheck, CheckCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const HowItWorks = () => {
   const steps = [
@@ -30,7 +31,7 @@ const HowItWorks = () => {
 
   return (
     <section className="py-16 bg-indigo-50">
-      <div className="container mx-auto px-4">
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">Getting the service you need is easy with our simple 4-step process.</p>
@@ -38,9 +39,9 @@ const HowItWorks = () => {
 
         <div className="relative">
           {/* Connection Line */}
-          <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-indigo-200 -translate-y-1/2 z-0"></div>
+          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-indigo-200 -translate-y-1/2 z-0"></div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 relative z-10">
             {steps.map((step) => (
               <div key={step.id} className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow text-center relative">
                 <div className="flex justify-center mb-6">
@@ -55,7 +56,9 @@ const HowItWorks = () => {
         </div>
 
         <div className="text-center mt-12">
-          <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-8 rounded-lg transition-colors">Book a Service Now</button>
+          <Link to="/services">
+            <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-full transition-colors hover:cursor-pointer">Book a Service Now</button>
+          </Link>
         </div>
       </div>
     </section>

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 import { useAuth } from "./contexts/authContext.jsx";
@@ -16,6 +17,8 @@ import ProviderDashboard from "./pages/dashboard/ProviderDashboard.jsx";
 import BecomeProvider from "./pages/BecomeProvider.jsx";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
+import ScrollToTop from "./components/layout/ScrollToTop.jsx";
+import GoogleMapsCityProvider from "./components/layout/GooleMapsCityProvider.jsx";
 
 // Wrapper for protected routes
 const ProtectedRoute = ({ children, roles }) => {
@@ -94,13 +97,13 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+      <Route path="/dashboard" element={<DashboardRoute />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Register />} />
       <Route path="/register" element={<Register />} />
       <Route path="/become-provider" element={<BecomeProvider />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="/dashboard" element={<DashboardRoute />} />
       <Route path="*" element={<Home />} />
     </Routes>
   );
@@ -109,7 +112,11 @@ const AppRoutes = () => {
 function App() {
   return (
     <Router>
-      <AppRoutes />
+      <GoogleMapsCityProvider>
+        <ScrollToTop />
+        <AppRoutes />
+        <Toaster position="top-right" toastOptions={{ duration: 3000, style: { background: "#333", color: "#fff" } }} />
+      </GoogleMapsCityProvider>
     </Router>
   );
 }

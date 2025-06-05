@@ -41,6 +41,20 @@ export const categories = [
     image: "https://images.pexels.com/photos/6444367/pexels-photo-6444367.jpeg",
     services: 8,
   },
+  {
+    id: "7",
+    name: "Painting",
+    icon: "paintbrush",
+    image: "https://images.pexels.com/photos/6444367/pexels-photo-6444367.jpeg",
+    services: 8,
+  },
+  {
+    id: "8",
+    name: "Painting",
+    icon: "paintbrush",
+    image: "https://images.pexels.com/photos/6444367/pexels-photo-6444367.jpeg",
+    services: 8,
+  },
 ];
 
 export const services = [

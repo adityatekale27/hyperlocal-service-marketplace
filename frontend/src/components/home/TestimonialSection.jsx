@@ -51,9 +51,9 @@ const TestimonialSection = () => {
     <section className="py-16 bg-gradient-to-b from-indigo-50 to-white relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-72 h-72 bg-indigo-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-        <div className="absolute top-0 right-0 w-72 h-72 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+        <div className="absolute -top-10 -left-30 w-72 h-72 bg-indigo-100 rounded-full mix-blend-multiply filter blur-xl opacity-50 animate-blob"></div>
+        <div className="absolute top-0 right-0 w-72 h-72 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-50 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-40 left-20 w-72 h-72 bg-pink-100 rounded-full mix-blend-multiply filter blur-xl opacity-50 animate-blob animation-delay-4000"></div>
       </div>
 
       <div className="container mx-auto px-4 relative">
@@ -64,10 +64,6 @@ const TestimonialSection = () => {
 
         <div className="max-w-4xl mx-auto">
           <div className="relative">
-            <div className="absolute top-0 right-0 transform translate-x-4 -translate-y-4">
-              <Quote className="h-16 w-16 text-indigo-100 transform rotate-180" />
-            </div>
-
             <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
               <div className="flex flex-col md:flex-row gap-8 items-center">
                 <div className="md:w-1/3">
@@ -89,31 +85,26 @@ const TestimonialSection = () => {
                     ))}
                   </div>
 
-                  <blockquote className="text-gray-700 text-lg italic mb-6 relative">"{currentTestimonial.content}"</blockquote>
+                  <blockquote className="text-gray-700 text-lg italic mb-5 relative">"{currentTestimonial.content}"</blockquote>
 
                   <div>
                     <h4 className="font-semibold text-gray-900">{currentTestimonial.name}</h4>
-                    <p className="text-gray-500">{currentTestimonial.role}</p>
-                    <div className="mt-2 text-sm text-gray-500">
-                      <span>{currentTestimonial.location}</span>
-                      <span className="mx-2">•</span>
-                      <span>{currentTestimonial.service}</span>
-                    </div>
+                    <div className="text-sm text-gray-500">{currentTestimonial.location}</div>
                   </div>
                 </div>
               </div>
 
-              {/* Navigation */}
+              {/* Navigation Buttons*/}
               <div className="flex justify-center md:justify-end gap-4 mt-8">
                 <button
                   onClick={prevTestimonial}
-                  className="p-2 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-600 transition-colors group"
+                  className="p-2 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-600 transition-colors group hover:cursor-pointer"
                   aria-label="Previous testimonial">
                   <ChevronLeft className="h-6 w-6 group-hover:-translate-x-1 transition-transform" />
                 </button>
                 <button
                   onClick={nextTestimonial}
-                  className="p-2 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-600 transition-colors group"
+                  className="p-2 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-600 transition-colors group hover:cursor-pointer"
                   aria-label="Next testimonial">
                   <ChevronRight className="h-6 w-6 group-hover:translate-x-1 transition-transform" />
                 </button>
@@ -122,11 +113,12 @@ const TestimonialSection = () => {
               {/* Indicators */}
               <div className="flex justify-center gap-2 mt-6">
                 {testimonials.map((_, index) => (
-                  <button
+                  <div
                     key={index}
                     onClick={() => setCurrentIndex(index)}
                     className={`h-2 rounded-full transition-all ${index === currentIndex ? "w-8 bg-indigo-600" : "w-2 bg-gray-300"}`}
-                    aria-label={`Go to testimonial ${index + 1}`}></button>
+                    aria-label={`Go to testimonial ${index + 1}`}
+                  />
                 ))}
               </div>
             </div>

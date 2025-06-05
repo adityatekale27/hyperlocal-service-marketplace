@@ -1,42 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import Layout from '../components/layout/Layout.jsx';
-import ServiceCard from '../components/services/ServiceCard.jsx';
-import { services, categories } from '../data/mockData.js';
-import { Filter, Star, ChevronDown, Search, X } from 'lucide-react';
-import { useServiceSearch } from '../contexts/serviceSearchContext.jsx';
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import Layout from "../components/layout/Layout.jsx";
+import ServiceCard from "../components/services/ServiceCard.jsx";
+import { services, categories } from "../data/mockData.js";
+import { Filter, ChevronDown, Search, X } from "lucide-react";
+import { useServiceSearch } from "../contexts/serviceSearchContext.jsx";
 
 const Services = () => {
+  const location = useLocation();
+
   const [filteredServices, setFilteredServices] = useState(services);
-  const [activeCategory, setActiveCategory] = useState('all');
-  const [sortBy, setSortBy] = useState('recommended');
-  const [priceRange, setPriceRange] = useState([0, 200]);
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [sortBy, setSortBy] = useState("recommended");
   const [showFilters, setShowFilters] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  
   const { searchTerm, setSearchTerm, clearSearch } = useServiceSearch();
   const [localSearchTerm, setLocalSearchTerm] = useState(searchTerm);
 
   // Initialize search term from URL
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const urlSearchTerm = params.get('search');
+    const params = new URLSearchParams(location.search);
+    const urlSearchTerm = params.get("search");
+
     if (urlSearchTerm) {
       setSearchTerm(urlSearchTerm);
       setLocalSearchTerm(urlSearchTerm);
     }
-  }, [setSearchTerm]);
+  }, [location.search, setSearchTerm]);
 
   // Update URL when search term changes
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(location.search);
     if (searchTerm) {
-      params.set('search', searchTerm);
+      params.set("search", searchTerm);
     } else {
-      params.delete('search');
+      params.delete("search");
     }
-    const newUrl = `${window.location.pathname}${params.toString() ? `?${params.toString()}` : ''}`;
-    window.history.replaceState({}, '', newUrl);
-  }, [searchTerm]);
+  }, [location.search, searchTerm]);
 
   // Apply filters and search
   useEffect(() => {
@@ -46,28 +46,20 @@ const Services = () => {
     // Search filter
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
-      result = result.filter(service => 
-        service.name.toLowerCase().includes(searchLower) ||
-        service.description.toLowerCase().includes(searchLower)
-      );
+      result = result.filter((service) => service.name.toLowerCase().includes(searchLower) || service.description.toLowerCase().includes(searchLower));
     }
 
     // Category filter
-    if (activeCategory !== 'all') {
-      result = result.filter(service => service.category === activeCategory);
+    if (activeCategory !== "all") {
+      result = result.filter((service) => service.category === activeCategory);
     }
 
-    // Price range filter
-    result = result.filter(
-      service => service.price >= priceRange[0] && service.price <= priceRange[1]
-    );
-
     // Sort
-    if (sortBy === 'price-low') {
+    if (sortBy === "price-low") {
       result.sort((a, b) => a.price - b.price);
-    } else if (sortBy === 'price-high') {
+    } else if (sortBy === "price-high") {
       result.sort((a, b) => b.price - a.price);
-    } else if (sortBy === 'rating') {
+    } else if (sortBy === "rating") {
       result.sort((a, b) => b.rating - a.rating);
     }
 
@@ -76,7 +68,7 @@ const Services = () => {
       setFilteredServices(result);
       setIsLoading(false);
     }, 300);
-  }, [searchTerm, activeCategory, sortBy, priceRange]);
+  }, [searchTerm, activeCategory, sortBy]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -84,20 +76,20 @@ const Services = () => {
   };
 
   const handleClearSearch = () => {
-    setLocalSearchTerm('');
+    setLocalSearchTerm("");
     clearSearch();
   };
 
   return (
     <Layout>
-      <div className="bg-indigo-600 py-16">
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl font-bold text-white mb-2">Services</h1>
-          <p className="text-indigo-100">Discover and book professional services</p>
+      <div className="py-16 bg-gradient-to-r from-indigo-800 to-purple-700">
+        <div className="container max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2">Services</h1>
+          <p className="text-indigo-100 text-lg md:text-xl lg:text-xl">Discover and book professional services</p>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         {/* Search Bar */}
         <div className="mb-8">
           <form onSubmit={handleSearch} className="relative">
@@ -112,11 +104,7 @@ const Services = () => {
               className="w-full pl-12 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
             />
             {localSearchTerm && (
-              <button
-                type="button"
-                onClick={handleClearSearch}
-                className="absolute inset-y-0 right-0 pr-4 flex items-center"
-              >
+              <button type="button" onClick={handleClearSearch} className="absolute inset-y-0 right-0 pr-4 flex items-center hover:cursor-pointer">
                 <X className="h-5 w-5 text-gray-400 hover:text-gray-600" />
               </button>
             )}
@@ -127,90 +115,41 @@ const Services = () => {
         <div className="md:hidden mb-6">
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="w-full flex items-center justify-between bg-white p-4 rounded-lg shadow-sm border border-gray-200"
-          >
+            className="w-full flex items-center justify-between bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200 hover:cursor-pointer">
             <div className="flex items-center">
               <Filter className="h-5 w-5 text-gray-500 mr-2" />
               <span className="font-medium">Filters</span>
             </div>
-            <ChevronDown className={`h-5 w-5 text-gray-500 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`h-5 w-5 text-gray-500 transition-transform ${showFilters ? "rotate-180" : ""}`} />
           </button>
         </div>
 
         <div className="flex flex-col md:flex-row gap-8">
           {/* Filters Section */}
-          <div className={`md:w-1/4 ${showFilters ? 'block' : 'hidden'} md:block`}>
-            <div className="bg-white rounded-lg shadow-sm p-6 sticky top-24">
+          <div className={`md:w-1/4 ${showFilters ? "block" : "hidden"} md:block`}>
+            <div className="bg-white rounded-xl shadow-sm p-6 sticky top-20 border border-gray-100">
               <h2 className="font-semibold text-lg mb-4">Categories</h2>
-              <div className="space-y-2 mb-8">
+              <div className="space-y-2">
                 <button
-                  onClick={() => setActiveCategory('all')}
-                  className={`block w-full text-left py-2 px-3 rounded-md transition-colors ${
-                    activeCategory === 'all'
-                      ? 'bg-indigo-50 text-indigo-600 font-medium'
-                      : 'text-gray-600 hover:bg-gray-50'
-                  }`}
-                >
+                  type="button"
+                  onClick={() => setActiveCategory("all")}
+                  className={`block w-full text-left py-2 px-3 rounded-md transition-colors hover:cursor-pointer ${
+                    activeCategory === "all" ? "bg-indigo-50 text-indigo-600 font-medium" : "text-gray-600 hover:bg-gray-50"
+                  }`}>
                   All Categories
                 </button>
-                {categories.map(category => (
+
+                {categories.map((category) => (
                   <button
                     key={category.id}
+                    type="button"
                     onClick={() => setActiveCategory(category.id)}
-                    className={`block w-full text-left py-2 px-3 rounded-md transition-colors ${
-                      activeCategory === category.id
-                        ? 'bg-indigo-50 text-indigo-600 font-medium'
-                        : 'text-gray-600 hover:bg-gray-50'
-                    }`}
-                  >
+                    className={`block w-full text-left py-2 px-3 rounded-md transition-colors hover:cursor-pointer ${
+                      activeCategory === category.id ? "bg-indigo-50 text-indigo-600 font-medium" : "text-gray-600 hover:bg-gray-50"
+                    }`}>
                     {category.name}
                   </button>
                 ))}
-              </div>
-
-              <div className="mb-8">
-                <h2 className="font-semibold text-lg mb-4">Price Range</h2>
-                <div className="px-2">
-                  <input
-                    type="range"
-                    min="0"
-                    max="200"
-                    step="10"
-                    value={priceRange[1]}
-                    onChange={e => setPriceRange([priceRange[0], parseInt(e.target.value)])}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
-                  />
-                  <div className="flex justify-between mt-2 text-sm text-gray-600">
-                    <span>${priceRange[0]}</span>
-                    <span>${priceRange[1]}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h2 className="font-semibold text-lg mb-4">Rating</h2>
-                <div className="space-y-2">
-                  {[5, 4, 3, 2].map(rating => (
-                    <div key={rating} className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id={`rating-${rating}`}
-                        className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                      />
-                      <label htmlFor={`rating-${rating}`} className="ml-2 flex items-center">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`h-4 w-4 ${
-                              i < rating ? 'text-amber-500 fill-amber-500' : 'text-gray-300'
-                            }`}
-                          />
-                        ))}
-                        <span className="ml-1 text-sm text-gray-600">& Up</span>
-                      </label>
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
@@ -218,16 +157,13 @@ const Services = () => {
           {/* Services List */}
           <div className="md:w-3/4">
             <div className="flex justify-between items-center mb-6">
-              <p className="text-gray-600">
-                {isLoading ? 'Searching...' : `${filteredServices.length} services found`}
-              </p>
+              <p className="text-gray-600">{isLoading ? "Searching..." : `${filteredServices.length} services found`}</p>
               <div className="flex items-center">
                 <span className="text-gray-600 mr-2">Sort by:</span>
                 <select
                   value={sortBy}
-                  onChange={e => setSortBy(e.target.value)}
-                  className="border border-gray-300 rounded-md py-1 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                >
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="hover:cursor-pointer border border-gray-300 rounded-md py-1 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                   <option value="recommended">Recommended</option>
                   <option value="price-low">Price: Low to High</option>
                   <option value="price-high">Price: High to Low</option>
@@ -250,7 +186,7 @@ const Services = () => {
               </div>
             ) : filteredServices.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredServices.map(service => (
+                {filteredServices.map((service) => (
                   <ServiceCard key={service.id} service={service} />
                 ))}
               </div>
@@ -267,4 +203,4 @@ const Services = () => {
   );
 };
 
-export default Services
+export default Services;
